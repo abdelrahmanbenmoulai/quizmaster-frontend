@@ -2209,3 +2209,12 @@ input[type="file"] {
     cursor: not-allowed;
     text-decoration: none;
 }
+
+@media (max-width: 400px) {
+  .auth-card {
+    max-width: 100vw;
+    width: 83vw;
+    margin: 0;
+    padding: 10vw;
+  }
+}

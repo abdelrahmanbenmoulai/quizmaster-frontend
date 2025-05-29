@@ -1426,8 +1426,9 @@ form {
   }
 
   .auth-card {
-    padding: 25px 15px;
-    margin: 0 10px;
+    max-width: 98vw;
+    margin: 0 2vw;
+    padding: 28px 10px;
   }
 
   .auth-card h1 {

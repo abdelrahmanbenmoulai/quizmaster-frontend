@@ -1,0 +1,17 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Flame base -->
+  <path d="M30,70 C20,60 15,45 25,30 C35,45 45,35 40,20 C50,30 65,25 60,55 C55,65 40,75 30,70 Z" fill="#9750dd" stroke="#6a0dad" stroke-width="2"/>
+  
+  <!-- Inner flame -->
+  <path d="M35,65 C28,55 28,45 32,35 C40,45 42,40 40,30 C48,40 55,38 50,55 C45,62 40,68 35,65 Z" fill="#ffc800" stroke="none"/>
+  
+  <!-- Flame highlights -->
+  <path d="M38,50 C36,45 38,40 40,38" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-opacity="0.7"/>
+  <path d="M45,55 C43,52 44,48 46,46" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-opacity="0.7"/>
+  
+  <!-- Number indicator background -->
+  <circle cx="60" cy="20" r="15" fill="#ffc800" stroke="#6a0dad" stroke-width="1.5"/>
+  
+  <!-- Number -->
+  <text x="60" y="25" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#6a0dad">7</text>
+</svg> 

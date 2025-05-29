@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .primary { fill: #6A0DAD; }
+    .secondary { fill: #F9D423; }
+    .accent { fill: #FF4F79; }
+    .base { fill: #444; }
+    .shadow { fill: rgba(0,0,0,0.2); }
+    .highlight { fill: rgba(255,255,255,0.3); }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { r: 8; opacity: 1; }
+      50% { r: 9; opacity: 0.6; }
+    }
+
+    .ball {
+      animation: float 2s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .btn {
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+  </style>
+
+  <!-- Base box -->
+  <rect class="base" x="15" y="60" width="70" height="25" rx="5" ry="5" />
+  <rect class="highlight" x="17" y="62" width="66" height="5" rx="2" ry="2" />
+
+  <!-- Joystick shaft -->
+  <rect class="primary" x="43" y="30" width="14" height="35" rx="7" ry="7" />
+  <ellipse class="shadow" cx="50" cy="66" rx="10" ry="3" />
+
+  <!-- Joystick ball top -->
+  <circle class="secondary ball" cx="50" cy="25" r="15" />
+  <circle class="highlight" cx="44" cy="20" r="5" />
+
+  <!-- Action buttons -->
+  <circle class="accent btn" cx="75" cy="70" r="8" />
+  <circle class="highlight" cx="72" cy="67" r="3" />
+
+  <circle class="secondary btn" cx="55" cy="70" r="8" />
+  <circle class="highlight" cx="52" cy="67" r="3" />
+
+  <circle class="accent btn" cx="35" cy="70" r="8" />
+  <circle class="highlight" cx="32" cy="67" r="3" />
+</svg>

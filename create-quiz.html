@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Create Quiz</title>
+    <link rel="stylesheet" href="css/base/styles.css">
+    <link rel="stylesheet" href="css/components/student-dashboard.css">
+    <link rel="stylesheet" href="css/components/create-quiz.css">
+    <link rel="stylesheet" href="css/components/notifications.css">
+    <!-- Keep the same fonts and icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Keep the same favicons -->
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="quizz master" />
+    <link rel="manifest" href="site.webmanifest" />
+    <!-- Add EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="teacher-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="teacher-quizzes.html" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>My Quizzes</span>
+                </a>
+                <a href="create-quiz.html" class="nav-item active">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Create Quiz</span>
+                </a>
+                <a href="teacher-students.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Students</span>
+                </a>
+                <a href="teacher-settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Keep the same mobile header -->
+            <div class="mobile-header">
+                <!-- ... mobile header content ... -->
+            </div>
+
+            <div class="create-quiz-container">
+                <!-- Quiz Creation Form -->
+                <div class="quiz-form-container">
+                    <h1 class="page-title">Create New Quiz</h1>
+                    
+                    <!-- Quiz Details Section -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-info-circle"></i> Quiz Details</h2>
+                            <p>Basic information about your quiz</p>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="quizTitle">Quiz Title</label>
+                                <input type="text" id="quizTitle" placeholder="Enter quiz title">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <select id="subject">
+                                    <option value="">Select subject</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="passScore">Pass Score (%)</label>
+                                <input type="number" id="passScore" min="0" max="100" value="60">
+                            </div>
+                            <div class="form-group">
+                                <label>Question Timer</label>
+                                <div class="timer-info">
+                                    <i class="fas fa-clock"></i>
+                                    <span>15 seconds per question</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="description">Description</label>
+                            <textarea id="description" rows="4" placeholder="Enter quiz description"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Questions Section -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-question-circle"></i> Questions</h2>
+                        </div>
+
+                        <div class="questions-list" id="questionsList">
+                            <!-- Question Card -->
+                            <div class="question-card">
+                                <div class="question-header">
+                                    <div class="question-info">
+                                        <span class="question-number">Question 1</span>
+                                        <span class="timer-badge">
+                                            <i class="fas fa-clock"></i> 15s
+                                        </span>
+                                    </div>
+                                    <div class="question-actions">
+                                        <button class="icon-btn" title="Move Up">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <button class="icon-btn" title="Move Down">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="question-content">
+                                    <div class="form-group">
+                                        <label>Question Text</label>
+                                        <input type="text" class="question-text" placeholder="Enter your question">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Question Type</label>
+                                        <select class="question-type">
+                                            <option value="multiple_choice">Multiple Choice</option>
+                                            <option value="true_false">True/False</option>
+                                            <option value="short_answer">Short Answer</option>
+                                        </select>
+                                    </div>
+                                    <div class="options-list">
+                                        <div class="option-item">
+                                            <input type="checkbox" name="correct1">
+                                            <input type="text" placeholder="Option 1">
+                                            <button class="remove-option">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button class="add-option-btn">
+                                        <i class="fas fa-plus"></i> Add Option
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add Question Button Container -->
+                        <div class="add-question-container">
+                            <button class="add-question-btn">
+                                <i class="fas fa-plus"></i> Add Question
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Settings Section -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-cog"></i> Quiz Settings</h2>
+                            <p>Configure quiz behavior</p>
+                        </div>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label class="switch-label">
+                                    <input type="checkbox" id="shuffleQuestions">
+                                    <span class="switch"></span>
+                                    Shuffle Questions
+                                </label>
+                                <p>Randomize question order for each student</p>
+                            </div>
+                            <div class="setting-item">
+                                <label class="switch-label">
+                                    <input type="checkbox" id="showResults">
+                                    <span class="switch"></span>
+                                    Show Results Immediately
+                                </label>
+                                <p>Display score after submission</p>
+                            </div>
+                            
+                            <!-- Add new results timing controls -->
+                            <div class="setting-item" id="resultsTimingContainer">
+                                <label>When should results be shown to students?</label>
+                                <div class="timing-controls">
+                                    <input type="number" id="resultsDelay" min="1" max="120" value="1">
+                                    <select id="resultsDelayUnit">
+                                        <option value="seconds">Seconds</option>
+                                        <option value="minutes">Minutes</option>
+                                        <option value="hours">Hours</option>
+                                        <option value="days">Days</option>
+                                        <option value="weeks">Weeks</option>
+                                        <option value="months">Months</option>
+                                    </select>
+                                </div>
+                                <p class="timing-hint">Choose when to reveal quiz results to students</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button class="action-btn outline">Save as Draft</button>
+                        <button class="action-btn primary">Create Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth-protection.js" type="module"></script>
+    <script src="js/create-quiz.js" type="module"></script>
+</body>
+
+</html>

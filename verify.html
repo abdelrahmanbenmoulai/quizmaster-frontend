@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email - QuizMaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base/styles.css">
+    <link rel="stylesheet" href="css/components/auth.css">
+    <link rel="stylesheet" href="css/components/notifications.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="quizz master" />
+    <link rel="manifest" href="site.webmanifest" />
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" 
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <!-- Splash elements -->
+    <div class="splash splash-1"></div>
+    <div class="splash splash-2"></div>
+    <div class="splash splash-3"></div>
+
+    <!-- Notification container -->
+    <div class="notification-container"></div>
+
+    <!-- Main content -->
+    <main>
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-logo">
+                        <a href="index.html">
+                            <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                        </a>
+                    </div>
+                    
+                    <div class="auth-header">
+                        <h1>Verify Your Email</h1>
+                        <p class="subtitle">Please enter the verification code sent to your email</p>
+                    </div>
+                    
+                    <form id="verificationForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="verificationCode">Verification Code</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-key"></i>
+                                <input type="text" id="verificationCode" name="verificationCode" 
+                                       maxlength="6" pattern="[0-9]{6}" required
+                                       placeholder="Enter 6-digit code">
+                            </div>
+                            <span class="error-message" id="verification-error"></span>
+                        </div>
+                        
+                        <div class="countdown">
+                            Code expires in: <span id="countdown">5:00</span>
+                        </div>
+                        
+                        <button type="submit" class="auth-button">
+                            <i class="fas fa-check"></i>
+                            Verify Email
+                        </button>
+                        
+                        <div class="auth-footer">
+                            <p>Didn't receive the code? 
+                                <button type="button" id="resendCode" class="link-button" disabled>
+                                    Resend Code
+                                </button>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module" src="js/auth/verify.js"></script>
+</body>
+</html> 

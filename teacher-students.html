@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Students</title>
+    <link rel="stylesheet" href="css/base/styles.css">
+    <link rel="stylesheet" href="css/components/student-dashboard.css">
+    <link rel="stylesheet" href="css/components/teacher-students.css">
+    <link rel="stylesheet" href="css/components/notifications.css">
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="quizz master" />
+    <link rel="manifest" href="site.webmanifest" />
+    <style>
+        /* Hide static content until JS loads it with real data */
+        .analytics-card .card-value, 
+        .filter-tab:not(.active) .count {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        body.js-loaded .analytics-card .card-value,
+        body.js-loaded .filter-tab:not(.active) .count {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- EMERGENCY FIX: Add direct-fix.js at the top of the body for immediate execution -->
+    
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="teacher-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="teacher-quizzes.html" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>My Quizzes</span>
+                </a>
+                <a href="create-quiz.html" class="nav-item">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Create Quiz</span>
+                </a>
+                <a href="teacher-students.html" class="nav-item active">
+                    <i class="fas fa-users"></i>
+                    <span>Students</span>
+                </a>
+                <a href="teacher-settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="students-container">
+                <!-- Students List -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="header-content">
+                            <h2><i class="fas fa-users"></i> Students List</h2>
+                            <div class="filter-tabs">
+                                <button class="filter-tab active" data-filter="all">All Students</button>
+                                <button class="filter-tab" data-filter="top">Top 3 <i class="fas fa-trophy"></i></button>
+                            </div>
+                        </div>
+                        <div class="header-actions">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search students...">
+                            </div>
+                            <a href="#" class="export-btn" title="Export to Excel">
+                                <i class="fas fa-file-export"></i>
+                                <span>Export to Excel</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="students-list">
+                        <!-- Student items will be loaded dynamically -->
+                        <div class="loading-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading students...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination inside dashboard-card but after students-list -->
+                    <div class="pagination">
+                        <button class="page-button prev" aria-label="Previous page">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <button class="page-button active">1</button>
+                        <button class="page-button">2</button>
+                        <button class="page-button">3</button>
+                        <span class="page-ellipsis">...</span>
+                        <button class="page-button">10</button>
+                        
+                        <button class="page-button next" aria-label="Next page">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth-protection.js" type="module"></script>
+    <script src="js/teacher-students.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+(function() {
+  var theme = localStorage.getItem('theme');
+  if (!theme && localStorage.getItem('darkMode') === 'true') theme = 'dark';
+  if (!theme) theme = 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark-theme');
+    document.documentElement.style.backgroundColor = '#1a1a1a';
+    document.documentElement.style.color = '#e0e0e0';
+  } else {
+    document.documentElement.classList.remove('dark-theme');
+    document.documentElement.style.backgroundColor = '#fff';
+    document.documentElement.style.color = '#222';
+  }
+})();
+</script>
+<style>
+  html, body { background: #fff; color: #222; }
+  html[data-theme='dark'], html.dark-theme, html[data-theme='dark'] body, html.dark-theme body {
+    background: #1a1a1a !important;
+    color: #e0e0e0 !important;
+  }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes - QuizMaster</title>
+    <!-- Add dark mode check script before any styles -->
+    <script>
+        // Immediately check dark mode preference
+        (function() {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark-theme');
+                // Wait for body to be available
+                if (document.body) {
+                    document.body.classList.add('dark-theme');
+                } else {
+                    // If body is not available yet, wait for it
+                    document.addEventListener('DOMContentLoaded', () => {
+                        document.body.classList.add('dark-theme');
+                    });
+                }
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="css/base/styles.css">
+    <link rel="stylesheet" href="css/components/student-dashboard.css">
+    <link rel="stylesheet" href="css/components/student-quizzes.css">
+    <link rel="stylesheet" href="css/components/tabs.css">
+    <link rel="stylesheet" href="css/components/notifications.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="../images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="quizz master" />
+    <link rel="manifest" href="site.webmanifest" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar (Keep consistent with dashboard) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="student-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="student-leaderboard.html" class="nav-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>Leaderboard</span>
+                </a>
+                <a href="student-quizzes.html" class="nav-item active">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Quizzes</span>
+                </a>
+                <a href="student-settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span>Logout</span>
+                </button>
+              </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Mobile Header -->
+            <div class="mobile-header">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="#" class="mobile-logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <div class="quiz-container" data-loading="false">
+                    <div class="section-header">
+                        <div class="header-content">
+                            <h2 class="section-title">Available Quizzes</h2>
+                        </div>
+                        <div class="quiz-tabs">
+                            <button class="tab-btn active" data-tab="available">
+                                <i class="fas fa-book-open"></i>
+                                Available Quizzes
+                            </button>
+                            <button class="tab-btn" data-tab="completed">
+                                <i class="fas fa-check-circle"></i>
+                                Completed
+                            </button>
+                            <select class="quiz-tabs-dropdown" aria-label="Select quiz tab">
+                                <option value="available">Available Quizzes</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="quiz-grid">
+                        <!-- Quiz cards will be dynamically inserted here -->
+                    </div>
+
+                    <div class="pagination">
+                        <!-- Pagination content -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quiz Preview Modal -->
+    <div class="quiz-preview-modal" id="quizPreviewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="previewQuizTitle">Quiz Title</h3>
+                <button class="close-modal-btn" id="closePreviewBtn" title="Close preview">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="quiz-details">
+                    <div class="detail-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span id="previewTeacherName">Teacher Name</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-book"></i>
+                        <span id="previewSubject">Subject</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span id="previewQuestionCount">10 Questions</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="previewTimeLimit">30 Minutes</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-award"></i>
+                        <span id="previewPassingScore">60% to Pass</span>
+                    </div>
+                </div>
+                <div class="quiz-description">
+                    <h4>Description</h4>
+                    <p id="previewDescription">Quiz description will be displayed here.</p>
+                </div>
+                <div class="question-types">
+                    <h4>Question Types</h4>
+                    <div class="type-badges" id="previewQuestionTypes">
+                        <!-- Question type badges will be added dynamically -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancelQuizBtn">Cancel</button>
+                <button class="start-quiz-btn" id="startQuizBtn">
+                    <i class="fas fa-play"></i>
+                    Start Quiz
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation guard prevents back navigation and enforces authentication requirements -->
+    <script src="js/navigation-guard.js" type="module"></script>
+    <script src="js/student-quizzes.js" type="module"></script>
+</body>
+</html>

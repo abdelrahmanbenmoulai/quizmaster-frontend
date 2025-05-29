@@ -1,0 +1,126 @@
+.analytics-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.stat-value {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+ 
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.recent-attempts {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.recent-attempts h4 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: #343a40;
+}
+
+.attempts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.attempt-item {
+  display: flex;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border-left: 4px solid #6c757d;
+}
+
+.attempt-item.correct {
+  border-left-color: #4CAF50;
+}
+
+.attempt-item.incorrect {
+  border-left-color: #dc3545;
+}
+
+.attempt-user {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+  min-width: 150px;
+}
+
+.attempt-user i {
+  font-size: 20px;
+  margin-right: 8px;
+  color: #6c757d;
+}
+
+.attempt-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.attempt-date {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.attempt-score {
+  font-weight: 500;
+}
+
+.attempt-status, .attempt-completion {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.correct .attempt-status {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+}
+
+.incorrect .attempt-status {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.attempt-completion {
+  background-color: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+  font-style: italic;
+} 

@@ -1,0 +1,270 @@
+/* Enhanced Podium Card for Leaderboard
+   This styling enhances the existing top performers section
+   in the student leaderboard page */
+
+/* Main container styling */
+.top-performers.single-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #6a0dad 0%, #4a0080 100%);
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+/* Balanced Confetti background effect */
+.top-performers.single-user::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: 
+    /* Gold stars */
+    radial-gradient(circle at 15% 15%, rgba(255, 215, 0, 0.6) 0, rgba(255, 215, 0, 0.6) 3.5px, transparent 3.5px),
+    /* Blue confetti */
+    radial-gradient(circle at 70% 30%, rgba(30, 144, 255, 0.55) 0, rgba(30, 144, 255, 0.55) 3px, transparent 3px),
+    /* Purple confetti */
+    radial-gradient(circle at 40% 70%, rgba(138, 43, 226, 0.55) 0, rgba(138, 43, 226, 0.55) 3.5px, transparent 3.5px),
+    /* Pink confetti */
+    radial-gradient(circle at 80% 80%, rgba(255, 105, 180, 0.5) 0, rgba(255, 105, 180, 0.5) 3px, transparent 3px);
+  background-size: 180px 180px;
+  opacity: 0.6;
+  z-index: 1;
+  animation: confettiRain 20s linear infinite;
+}
+
+@keyframes confettiRain {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+/* Top performer styling */
+.top-performers.single-user .top-performer.first {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  position: relative;
+  z-index: 5;
+}
+
+/* Crown animation */
+.top-performers.single-user .top-performer.crown-style::before {
+  content: "\f521"; /* Crown icon from FontAwesome */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3.2rem;
+  color: #FFDF00;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  animation: floatingCrown 3s ease-in-out infinite, glowCrown 2s ease-in-out infinite alternate;
+  z-index: 10;
+}
+
+@keyframes floatingCrown {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-8px) rotate(5deg);
+  }
+}
+
+@keyframes glowCrown {
+  0% {
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  }
+  100% {
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1));
+    text-shadow: 0 0 18px rgba(255, 215, 0, 1);
+  }
+}
+
+/* Avatar styling */
+.top-performers.single-user .performer-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #FFD700;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.top-performers.single-user .performer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center center;
+}
+
+/* User name styling */
+.top-performers.single-user .performer-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Quiz count styling */
+.top-performers.single-user .quiz-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+  color: white;
+}
+
+.top-performers.single-user .quiz-count i {
+  color: #4CAF50;
+  margin-right: 4px;
+}
+
+/* Badge styling */
+.top-performers.single-user .performer-badge {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Beginner badge */
+.top-performers.single-user .beginner-badge {
+  background: linear-gradient(135deg, #9370DB 0%, #B19CD9 50%, #9370DB 100%);
+  color: white;
+  border: 1px solid #7B68EE;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 8px rgba(147, 112, 219, 0.4);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 20px;
+  min-width: 90px;
+}
+
+/* Bronze badge */
+.top-performers.single-user .bronze-badge {
+  background: linear-gradient(135deg, #cd7f32 0%, #e8aa68 50%, #cd7f32 100%);
+  color: white;
+  border: 1px solid #a86524;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 8px rgba(205, 127, 50, 0.4);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 20px;
+}
+
+/* Silver badge */
+.top-performers.single-user .silver-badge {
+  background: linear-gradient(135deg, #c0c0c0 0%, #e6e6e6 50%, #c0c0c0 100%);
+  color: #505050;
+  border: 1px solid #a9a9a9;
+  text-shadow: 0 1px 2px rgba(80, 80, 80, 0.2);
+  box-shadow: 0 0 8px rgba(227, 227, 227, 0.4);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 20px;
+}
+
+/* Gold badge with shine effect */
+.top-performers.single-user .gold-badge {
+  background: linear-gradient(135deg, #ffd700 0%, #ffec80 50%, #ffd700 100%);
+  color: #926e00;
+  border: 1px solid #e6c200;
+  text-shadow: 0 1px 2px rgba(146, 110, 0, 0.2);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 20px;
+}
+
+.top-performers.single-user .gold-badge::before {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -100%;
+  width: 50%;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.8);
+  transform: rotate(30deg);
+  animation: goldShine 3s infinite linear;
+}
+
+@keyframes goldShine {
+  0% {
+    left: -100%;
+    top: -150%;
+  }
+  100% {
+    left: 200%;
+    top: 150%;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .top-performers.single-user .performer-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .top-performers.single-user .performer-name {
+    font-size: 1.3rem;
+  }
+  
+  .top-performers.single-user .top-performer.crown-style::before {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-performers.single-user {
+    padding: 50px 15px;
+  }
+  
+  .top-performers.single-user .performer-avatar {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .top-performers.single-user .performer-name {
+    font-size: 1.2rem;
+  }
+}
+
+ 

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizMaster - Turn Learning into a Game!</title>
+  <link rel="stylesheet" href="css/base/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="shortcut icon" href="images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="quizz master" />
+  <link rel="manifest" href="site.webmanifest" />
+</head>
+
+<body>
+  <header id="navbar" role="banner">
+    <div class="container">
+      <a href="#" class="logo" aria-label="QuizMaster Home">
+        <img src="images/quiz-logo.svg" alt="QuizMaster Logo" width="40" height="40">
+        <span>QuizMaster</span>
+      </a>
+      <nav class="nav-links" role="navigation" aria-label="Main navigation">
+        <a href="login.html" class="cta-button" role="button">Log In</a>
+      </nav>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <button class="close-menu" aria-label="Close menu">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="mobile-brand">
+      <a href="#" class="mobile-logo">
+        <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+        <span>QuizMaster</span>
+      </a>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="login.html" class="cta-button">Log In</a>
+    </div>
+  </div>
+
+  <div class="overlay" role="presentation"></div>
+
+  <main id="main-content">
+    <section id="hero" role="region" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-content">
+          <h1 id="hero-title">Test Your Knowledge with University Quizzes</h1>
+          <p>Challenge yourself, compete with friends, and enhance your learning with our interactive quiz platform.</p>
+          <div class="button-group">
+            <a href="signup.html" class="cta-secondary" role="button">Get Started</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="images/college-class-animate.svg" alt="Students enjoying interactive quizzes" class="desktop-image" width="600" height="400">
+          <img src="images/college-class-animate.png" alt="Students enjoying interactive quizzes" class="mobile-only-image" width="300" height="200" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section id="features" role="region" aria-labelledby="features-title">
+      <div class="container">
+        <h2 id="features-title" class="section-title">Why Join?</h2>
+        <div class="features-grid">
+          <div class="feature-card" role="article">
+            <div class="feature-icon">
+              <img src="images/joystick.svg" alt="" width="48" height="48" loading="lazy">
+            </div>
+            <h3>Fun & Competitive</h3>
+            <p>Answer quizzes, rank up, and challenge yourself every day!</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><img src="images/timer.svg" alt="Time Limit"></div>
+            <h3>15-Second Answer Limit</h3>
+            <p>No time to cheat — just quick thinking and real knowledge.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><img src="images/ranking.svg" alt="Ranking System"></div>
+            <h3>Ranking System</h3>
+            <p>Start at Bronze, progress to Silver, reach Gold based on your quiz accuracy and consistency!</p>
+            <div class="rank-progression">
+              <span class="rank bronze">Bronze</span>
+              <span class="rank-arrow"><i class="fas fa-arrow-right"></i></span>
+              <span class="rank silver">Silver</span>
+              <span class="rank-arrow"><i class="fas fa-arrow-right"></i></span>
+              <span class="rank gold">Gold</span>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><img src="images/medal.svg" alt="Rewards"></div>
+            <h3>End-of-Semester Rewards</h3>
+            <p>Earn points, climb the ranks, and prove your skills for special recognition!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" role="region" aria-labelledby="how-it-works-title">
+      <div class="container">
+        <h2 id="how-it-works-title" class="section-title">How It Works</h2>
+        <div class="process-steps">
+          <div class="process-step" role="article">
+            <div class="step-number" aria-hidden="true">1</div>
+            <div class="step-content">
+              <h3>Teacher Prep</h3>
+              <p>After each lecture, teachers prepare short quizzes with easy, medium, and hard questions.</p>
+            </div>
+            <div class="step-image">
+              <img src="images/teacher-questions.svg" alt="" width="200" height="150" loading="lazy">
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>15-Second Timer</h3>
+              <p>Each question must be answered within 15 seconds to prevent cheating.</p>
+            </div>
+            <div class="step-image">
+              <img src="images/stopwatch.svg" alt="15 second timer">
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Rank System</h3>
+              <p>Correct answers increase a student's rank, while incorrect answers cause a drop in rank.</p>
+            </div>
+            <div class="step-image">
+              <img src="images/podium.svg" alt="Rank system">
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Semester Rewards</h3>
+              <p>Higher-ranked students receive bonus points and special recognition at the end of the semester.</p>
+            </div>
+            <div class="step-image">
+              <img src="images/trophy.svg" alt="Semester rewards">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" role="region" aria-labelledby="testimonials-title">
+      <div class="container">
+        <h2 id="testimonials-title" class="section-title">What Our Users Say</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card" role="article">
+            <div class="quote-mark" aria-hidden="true">"</div>
+            <p>QuizMaster transformed how I study. I'm actually excited to review material now that it feels like a game!</p>
+            <div class="testimonial-author">
+              <span class="name">Nouai Mohamed</span>
+              <span class="role">Student, Psychology</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="quote-mark">"</div>
+            <p>As a professor, I've seen participation rates skyrocket since implementing these quizzes in my lectures.</p>
+            <div class="testimonial-author">
+              <span class="name">Dr. Souati Mohammed EL Bashir</span>
+              <span class="role">Professor, Computer Science</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="quote-mark">"</div>
+            <p>The ranking system motivates me to study harder. I started at Bronze and made it to Gold in one semester!</p>
+            <div class="testimonial-author">
+              <span class="name">Sourdi Ahmed Mahmoud</span>
+              <span class="role">Student, Engineering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mission" role="region" aria-labelledby="mission-title">
+      <div class="container">
+        <div class="mission-content">
+          <h2 id="mission-title" class="section-title">Our Mission</h2>
+          <h2>Making learning engaging, interactive, and rewarding!</h2>
+          <p>Our gamified approach to education creates an environment where students are motivated to participate and excel in their studies.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-links">
+          <div class="link-group">
+            <h4 id="contact-title">Contact</h4>
+            <ul aria-labelledby="contact-title">
+              <li><i class="fas fa-envelope" aria-hidden="true"></i>quizmaster046@gmail.com</li>
+              <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i>Ammar Telidji University<br>Departement of Computer Sience</li>
+            </ul>
+          </div>
+          <div class="link-group">
+            <h4 id="social-title">Social Media</h4>
+            <div class="social-icons" aria-labelledby="social-title">
+              <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+              <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+              <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-x" aria-hidden="true"></i></a>
+              <a href="#" class="social-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+              <a href="#" class="social-icon" aria-label="Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a>
+              <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+            </div>
+          </div>
+          <div class="link-group">
+            <h4 id="legal-title">Legal</h4>
+            <ul aria-labelledby="legal-title">
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 QuizMaster. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js" type="module"></script>
+</body>
+
+</html> 

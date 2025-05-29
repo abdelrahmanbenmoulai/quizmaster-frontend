@@ -1,0 +1,121 @@
+.username-feedback,
+.password-feedback {
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    white-space: pre-line;
+    display: block;
+    width: 100%;
+    clear: both;
+    margin-bottom: 1rem;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group input {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+/* Password input container */
+.password-input {
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.password-input input {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-medium);
+    cursor: pointer;
+    padding: 0;
+    z-index: 1;
+}
+
+.username-feedback.valid,
+.password-feedback.valid {
+    color: #2e7d32;
+    background-color: #e8f5e9;
+    border: 1px solid #a5d6a7;
+}
+
+.username-feedback.invalid,
+.password-feedback.invalid {
+    color: #c62828;
+    background-color: #ffebee;
+    border: 1px solid #ef9a9a;
+}
+
+/* Feedback list styling */
+.username-feedback ul,
+.password-feedback ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.username-feedback li,
+.password-feedback li {
+    margin: 0.25rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.username-feedback li:before,
+.password-feedback li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #2e7d32;
+}
+
+.username-feedback li.invalid:before,
+.password-feedback li.invalid:before {
+    content: "✗";
+    color: #c62828;
+}
+
+/* Dark mode styles */
+body.dark-theme .username-feedback.valid,
+body.dark-theme .password-feedback.valid {
+    color: #81c784;
+    background-color: rgba(46, 125, 50, 0.2);
+    border-color: #2e7d32;
+}
+
+body.dark-theme .username-feedback.invalid,
+body.dark-theme .password-feedback.invalid {
+    color: #ef9a9a;
+    background-color: rgba(198, 40, 40, 0.2);
+    border-color: #c62828;
+}
+
+/* Dark mode feedback icons */
+body.dark-theme .username-feedback li:before,
+body.dark-theme .password-feedback li:before {
+    color: #81c784;
+}
+
+body.dark-theme .username-feedback li.invalid:before,
+body.dark-theme .password-feedback li.invalid:before {
+    color: #ef9a9a;
+} 

@@ -1,0 +1,608 @@
+.quiz-active {
+  overflow-y: auto;
+  background: var(--main-content-bg);
+}
+
+.quiz-answer-container {
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 500px;
+  padding-bottom: 70px;
+}
+
+.quiz-header {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(106, 13, 173, 0.1);
+  background-color: white;
+}
+
+.quiz-timer {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.timer-circle {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.timer-svg {
+  transform: rotate(-90deg);
+}
+
+.timer-background,
+.timer-progress {
+  fill: none;
+  stroke-width: 8;
+}
+
+.timer-background {
+  stroke: rgba(106, 13, 173, 0.1);
+}
+
+.timer-progress {
+  stroke: var(--primary);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timer-count {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  font-family: "Fredoka", sans-serif;
+}
+
+.quiz-content {
+  padding: 32px;
+  background-color: var(--background-light);
+}
+
+.question-text {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 32px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Question progress indicator */
+.quiz-progress {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  background-color: white;
+  border-bottom: 1px solid rgba(106, 13, 173, 0.1);
+}
+
+.progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(106, 13, 173, 0.2);
+  transition: all 0.3s ease;
+}
+
+.progress-dot.current {
+  background-color: var(--primary);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.2);
+}
+
+.progress-dot.completed {
+  background-color: var(--right-color);
+}
+
+/* Option grid base styles */
+.options-grid {
+  display: grid;
+  gap: 20px;
+}
+
+/* Multiple choice questions - 2 columns */
+.options-grid.multiple-choice {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 20px;
+}
+
+/* True/False questions - 2 equal columns */
+.options-grid.true-false {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Short answer questions - full width */
+.options-grid.short-answer {
+  grid-template-columns: 1fr;
+}
+
+.option-btn {
+  padding: 24px;
+  border: 2px solid rgba(106, 13, 173, 0.1);
+  border-radius: var(--border-radius);
+  background: white;
+  color: var(--text-dark);
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.option-btn:hover {
+  border-color: var(--primary);
+  background: rgba(106, 13, 173, 0.05);
+  transform: translateY(-2px);
+}
+
+.option-btn.selected {
+  border-color: var(--primary);
+  background: rgba(106, 13, 173, 0.1);
+}
+
+.option-btn.correct {
+  border-color: var(--right-color);
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.option-btn.wrong {
+  border-color: var(--wrong-color);
+  background: rgba(255, 77, 77, 0.1);
+}
+
+/* Short answer text input */
+.text-input-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.short-answer-input {
+  width: 100%;
+  min-height: 120px;
+  padding: 16px;
+  border: 2px solid rgba(106, 13, 173, 0.1);
+  border-radius: var(--border-radius);
+  background: white;
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.short-answer-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.1);
+}
+
+/* Navigation buttons - make sticky for all screen sizes */
+.navigation-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.nav-btn {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.prev-btn {
+  background-color: rgba(106, 13, 173, 0.1);
+  color: var(--text-dark);
+}
+
+.prev-btn:hover {
+  background-color: rgba(106, 13, 173, 0.2);
+}
+
+.next-btn {
+  background-color: var(--primary);
+  color: white;
+  font-size: 1.1rem;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(106, 13, 173, 0.2);
+  transition: all 0.3s ease;
+}
+
+.next-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(106, 13, 173, 0.3);
+}
+
+/* Warning Modal */
+.warning-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Failure Modal - shared styles with warning modal */
+.failure-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.warning-modal.active,
+.failure-modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  max-width: 450px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content i {
+  font-size: 48px;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.modal-content .failure-icon {
+  color: var(--wrong-color);
+}
+
+.modal-content h3 {
+  font-size: 24px;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+}
+
+.modal-content p {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.modal-content .abandon-warning {
+  font-weight: 600;
+  color: var(--wrong-color);
+  background-color: rgba(255, 77, 77, 0.1);
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 24px;
+}
+
+.modal-btn {
+  background-color: var(--primary);
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 4px 8px rgba(106, 13, 173, 0.2);
+}
+
+.modal-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(106, 13, 173, 0.3);
+}
+
+/* Low time warning */
+.timer-circle.warning .timer-progress {
+  stroke: var(--wrong-color);
+}
+
+.timer-circle.warning .timer-count {
+  color: var(--wrong-color);
+}
+
+/* Add teacher info styles */
+.quiz-info .teacher-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quiz-info .teacher-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  object-fit: cover;
+  object-position: center center;
+  transform: scale(1);
+  transform-origin: center center;
+  will-change: transform, object-position;
+}
+
+.quiz-info .teacher-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.quiz-info .teacher-name {
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.quiz-info .subject {
+  color: var(--text-medium);
+  font-size: 0.9rem;
+}
+
+/* Style for the selection note */
+.selection-note {
+  grid-column: 1 / -1;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  padding: 12px;
+  background-color: rgba(106, 13, 173, 0.05);
+  border: 1px solid rgba(106, 13, 173, 0.2);
+  border-radius: var(--border-radius);
+  color: var(--primary);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.selection-note i {
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .quiz-answer-container {
+    margin: 10px 10px 60px 10px;
+    min-height: auto;
+  }
+  
+  .quiz-content {
+    padding: 20px 20px 80px 20px;
+  }
+  
+  .navigation-buttons {
+    padding: 15px 20px;
+  }
+
+  .options-grid.multiple-choice,
+  .options-grid.true-false {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .quiz-timer {
+    width: 60px;
+    height: 60px;
+  }
+
+  .timer-count {
+    font-size: 1.2rem;
+  }
+
+  .question-text {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+  }
+
+  .option-btn {
+    padding: 16px;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+  }
+
+  .next-btn {
+    margin-left: 0;
+    order: -1;
+  }
+
+  .options-grid.multiple-choice {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Fixed navigation container at the bottom of the card */
+.fixed-navigation-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: var(--background-light);
+  padding: 15px 20px;
+  border-top: 1px solid rgba(106, 13, 173, 0.1);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  text-align: right;
+}
+
+/* Make sure the content area has enough bottom padding */
+.question-container {
+  padding-bottom: 80px;
+}
+
+/* Dark mode styles */
+body.dark-theme .quiz-answer-container {
+  background: var(--dark-card-bg);
+  box-shadow: var(--dark-shadow);
+}
+
+body.dark-theme .quiz-header {
+  background-color: var(--dark-card-bg);
+  border-bottom-color: var(--dark-border);
+}
+
+body.dark-theme .quiz-content {
+  background-color: var(--dark-bg);
+}
+
+body.dark-theme .question-text {
+  color: var(--dark-text);
+}
+
+body.dark-theme .option-btn {
+  background: var(--dark-card-bg);
+  border-color: var(--dark-border);
+  color: var(--dark-text);
+}
+
+body.dark-theme .option-btn:hover {
+  background: rgba(106, 13, 173, 0.15);
+  border-color: var(--primary);
+}
+
+body.dark-theme .option-btn.selected {
+  background: rgba(106, 13, 173, 0.2);
+  border-color: var(--primary);
+}
+
+body.dark-theme .option-btn.correct {
+  background: rgba(76, 175, 80, 0.15);
+  border-color: var(--right-color);
+}
+
+body.dark-theme .option-btn.wrong {
+  background: rgba(255, 77, 77, 0.15);
+  border-color: var(--wrong-color);
+}
+
+body.dark-theme .short-answer-input {
+  background: var(--dark-card-bg);
+  border-color: var(--dark-border);
+  color: var(--dark-text);
+}
+
+body.dark-theme .short-answer-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.2);
+}
+
+body.dark-theme .prev-btn {
+  background-color: rgba(106, 13, 173, 0.2);
+  color: var(--dark-text);
+}
+
+body.dark-theme .prev-btn:hover {
+  background-color: rgba(106, 13, 173, 0.3);
+}
+
+body.dark-theme .fixed-navigation-container {
+  background-color: var(--dark-bg);
+  border-top-color: var(--dark-border);
+}
+
+body.dark-theme .quiz-info .teacher-name {
+  color: var(--dark-text);
+}
+
+body.dark-theme .quiz-info .subject {
+  color: var(--dark-text-secondary);
+}
+
+body.dark-theme .selection-note {
+  background-color: rgba(106, 13, 173, 0.15);
+  border-color: rgba(106, 13, 173, 0.3);
+  color: var(--primary);
+}
+
+/* Dark mode styles for modals */
+body.dark-theme .modal-content {
+  background: var(--dark-card-bg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .modal-content h3 {
+  color: var(--dark-text);
+}
+
+body.dark-theme .modal-content p {
+  color: var(--dark-text-secondary);
+}
+
+body.dark-theme .modal-content .abandon-warning {
+  background-color: rgba(255, 77, 77, 0.15);
+}
+
+/* Dark mode styles */
+body.dark-theme .quiz-header {
+  background-color: var(--dark-card-bg);
+  border-bottom-color: var(--dark-border);
+}
+
+body.dark-theme .quiz-info .teacher-name {
+  color: var(--dark-text);
+}
+
+body.dark-theme .quiz-info .subject {
+  color: var(--dark-text-secondary);
+}
+
+body.dark-theme .quiz-progress {
+  background-color: var(--dark-card-bg);
+  border-bottom-color: var(--dark-border);
+}
+
+body.dark-theme .timer-count {
+  color: var(--primary);
+}
+
+body.dark-theme .timer-circle.warning .timer-count {
+  color: var(--wrong-color);
+}
+
+body.dark-theme .timer-background {
+  stroke: var(--dark-border);
+}

@@ -1,0 +1,17 @@
+<svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="75" cy="75" r="70" fill="#6A2FD0"/>
+  
+  <!-- Owl face -->
+  <circle cx="55" cy="60" r="18" fill="white"/>
+  <circle cx="95" cy="60" r="18" fill="white"/>
+  <circle cx="55" cy="60" r="8" fill="#222"/>
+  <circle cx="95" cy="60" r="8" fill="#222"/>
+  
+  <!-- Simple reflection in eyes -->
+  <circle cx="52" cy="57" r="3" fill="white"/>
+  <circle cx="92" cy="57" r="3" fill="white"/>
+  
+  <!-- Owl beak - back to a better position -->
+  <path d="M75,85 L90,100 L60,100 Z" fill="#FF9500"/>
+</svg>

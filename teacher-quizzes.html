@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - My Quizzes</title>
+    <link rel="stylesheet" href="css/base/styles.css">
+    <link rel="stylesheet" href="css/components/student-dashboard.css">
+    <link rel="stylesheet" href="css/components/teacher-quizzes.css">
+    <link rel="stylesheet" href="css/components/notifications.css">
+    <link rel="stylesheet" href="css/components/analytics-panel.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="quizz master" />
+    <link rel="manifest" href="site.webmanifest" />
+    <style>
+        /* Hide static content until JS loads it with real data */
+        .analytics-card .card-value, 
+        .filter-tab:not(.active) {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .js-loaded .analytics-card .card-value,
+        .js-loaded .filter-tab:not(.active) {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="teacher-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="teacher-quizzes.html" class="nav-item active">
+                    <i class="fas fa-book"></i>
+                    <span>My Quizzes</span>
+                </a>
+                <a href="create-quiz.html" class="nav-item">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Create Quiz</span>
+                </a>
+                <a href="teacher-students.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Students</span>
+                </a>
+                <a href="teacher-settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Mobile Header -->
+            <div class="mobile-header">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="#" class="mobile-logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+
+            <div class="quizzes-container">
+                <!-- Stats Overview -->
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-value" data-counter="total-quizzes">0</span>
+                            <h3>Total Quizzes</h3>
+                            <p class="trend"></p>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-value" data-counter="total-attempts">0</span>
+                            <h3>Total Attempts</h3>
+                            <p class="trend"></p>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-value" data-counter="average-score">0%</span>
+                            <h3>Average Score</h3>
+                            <p class="trend"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Management -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-card quiz-manager">
+                        <div class="card-header">
+                            <div class="header-content">
+                                <h2><i class="fas fa-book"></i> Quiz Library</h2>
+                                <div class="filter-tabs">
+                                    <button class="filter-tab active">All</button>
+                                    <button class="filter-tab">Active</button>
+                                    <button class="filter-tab">Draft</button>
+                                </div>
+                            </div>
+                            <div class="header-actions">
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" placeholder="Search quizzes...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Single quiz list container -->
+                        <div class="quiz-list">
+                            <!-- Quiz items will be loaded dynamically through JavaScript -->
+                            <div class="loading-state">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading quizzes...</p>
+                            </div>
+                        </div>
+
+                        <div class="quiz-details-section" style="display: none;">
+                            <!-- Edit Quiz Section -->
+                            <div class="edit-quiz-panel" style="display: none;">
+                                <div class="panel-header">
+                                    <h3><i class="fas fa-edit"></i> Edit Quiz</h3>
+                                    <button class="close-panel">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="form-group">
+                                        <label>Quiz Title</label>
+                                        <input type="text" class="quiz-title-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Subject</label>
+                                        <select class="quiz-subject-select">
+                                            <option value="programming">Programming</option>
+                                            <option value="database">Database</option>
+                                            <option value="web">Web Development</option>
+                                        </select>
+                                    </div>
+                                    <div class="questions-list">
+                                        <!-- Questions will be loaded here -->
+                                    </div>
+                                    <div class="panel-actions">
+                                        <button class="action-btn outline">Cancel</button>
+                                        <button class="action-btn primary">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Analytics Section -->
+                            <div class="analytics-panel" style="display: none;">
+                                <div class="panel-header">
+                                    <h3><i class="fas fa-chart-bar"></i> Quiz Analytics</h3>
+                                    <button class="close-panel">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="panel-content">
+                                    <!-- Analytics content will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pagination">
+                            <!-- Pagination will be updated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth-protection.js" type="module"></script>
+    <script src="js/teacher-quizzes.js" type="module"></script>
+</body>
+</html>

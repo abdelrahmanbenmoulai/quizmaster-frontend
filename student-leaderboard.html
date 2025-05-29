@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+(function() {
+  var theme = localStorage.getItem('theme');
+  if (!theme && localStorage.getItem('darkMode') === 'true') theme = 'dark';
+  if (!theme) theme = 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark-theme');
+    document.documentElement.style.backgroundColor = '#1a1a1a';
+    document.documentElement.style.color = '#e0e0e0';
+  } else {
+    document.documentElement.classList.remove('dark-theme');
+    document.documentElement.style.backgroundColor = '#fff';
+    document.documentElement.style.color = '#222';
+  }
+})();
+</script>
+<style>
+  html, body { background: #fff; color: #222; }
+  html[data-theme='dark'], html.dark-theme, html[data-theme='dark'] body, html.dark-theme body {
+    background: #1a1a1a !important;
+    color: #e0e0e0 !important;
+  }
+</style>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="QuizMaster Student Leaderboard - Track your ranking and compete with other students">
+  <title>QuizMaster - Student Leaderboard</title>
+  
+  <!-- Add dark mode check script before any styles -->
+  <script>
+    // Immediately check dark mode preference
+    (function() {
+      const isDarkMode = localStorage.getItem('darkMode') === 'true';
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark-theme');
+        // Wait for body to be available
+        if (document.body) {
+          document.body.classList.add('dark-theme');
+        } else {
+          // If body is not available yet, wait for it
+          document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('dark-theme');
+          });
+        }
+      }
+    })();
+  </script>
+  
+  <!-- Preload critical assets -->
+  <link rel="preload" href="css/base/styles.css" as="style">
+  <link rel="preload" href="css/components/student-dashboard.css" as="style">
+  <link rel="preload" href="css/components/student-leaderboard.css" as="style">
+  <link rel="preload" href="js/student-leaderboard.js" as="script" crossorigin="anonymous">
+  <link rel="preload" href="js/utils/auth.js" as="script" crossorigin="anonymous">
+  <link rel="preload" href="js/utils/notifications.js" as="script" crossorigin="anonymous">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/base/styles.css">
+  <link rel="stylesheet" href="css/components/student-dashboard.css">
+  <link rel="stylesheet" href="css/components/student-leaderboard.css">
+  <link rel="stylesheet" href="css/components/podium-card.css">
+  <link rel="stylesheet" href="css/components/notifications.css">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="QuizMaster">
+  <link rel="manifest" href="site.webmanifest">
+  
+  <!-- Critical CSS -->
+  <style>
+    /* Critical fix for rank badges */
+    .performer-avatar {
+      position: relative !important;
+      overflow: hidden !important;
+      z-index: 0 !important;
+    }
+    
+    .performer-avatar::after {
+      position: absolute !important;
+      bottom: -10px !important;
+      right: -10px !important;
+      z-index: 2 !important;
+      content: "#" attr(data-rank) !important;
+    }
+    
+    .performer.first .performer-avatar::after {
+      bottom: -12px !important;
+      right: -12px !important;
+    }
+
+    /* Fix for avatar images */
+    .avatar-container img.avatar-image {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      border-radius: 50% !important;
+      top: 0 !important;
+      left: 0 !important;
+      transform-origin: center center !important;
+      will-change: transform !important;
+      backface-visibility: hidden !important;
+      z-index: 1 !important;
+    }
+
+    /* Make sure avatar containers have proper overflow for the images */
+    .avatar-container {
+      overflow: hidden !important;
+      position: relative !important;
+      transform: translateZ(0) !important;
+      z-index: 0 !important;
+    }
+
+    /* Performance optimizations */
+    .leaderboard-container {
+      contain: content !important;
+      will-change: transform !important;
+    }
+
+    .leaderboard-item {
+      contain: layout !important;
+      will-change: transform !important;
+    }
+
+    /* Fix for podium avatar containers */
+    .performer .avatar-container {
+      overflow: hidden !important;
+      border-radius: 50% !important;
+      z-index: 0 !important;
+    }
+
+    .performer .avatar-container img {
+      z-index: 1 !important;
+      position: relative !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="student-dashboard.html" class="logo" aria-label="QuizMaster Home">
+          <img src="images/quiz-logo.svg" alt="QuizMaster Logo" width="32" height="32">
+          <span>QuizMaster</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="student-dashboard.html" class="nav-item">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <span>Home</span>
+        </a>
+        <a href="student-leaderboard.html" class="nav-item active" aria-current="page">
+          <i class="fas fa-trophy" aria-hidden="true"></i>
+          <span>Leaderboard</span>
+        </a>
+        <a href="student-quizzes.html" class="nav-item">
+          <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          <span>Quizzes</span>
+        </a>
+        <a href="student-settings.html" class="nav-item">
+          <i class="fas fa-cog" aria-hidden="true"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <button class="logout-btn" aria-label="Logout">
+          <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Mobile Header -->
+      <div class="mobile-header">
+        <button class="menu-toggle" aria-label="Toggle menu">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        <a href="student-dashboard.html" class="mobile-logo" aria-label="QuizMaster Home">
+          <img src="images/quiz-logo.svg" alt="QuizMaster Logo" width="32" height="32">
+          <span>QuizMaster</span>
+        </a>
+      </div>
+
+      <!-- Leaderboard Content -->
+      <div class="dashboard-content">
+        <section aria-label="Leaderboard">
+          <!-- Search bar -->
+          <div class="search-container">
+            <div class="search-wrapper">
+              <input type="text" 
+                     id="student-search" 
+                     class="search-input" 
+                     placeholder="Search for students..."
+                     aria-label="Search students">
+              <button class="search-button" aria-label="Search">
+                <i class="fas fa-search" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="leaderboard-container" data-loading="true" aria-live="polite">
+            <!-- Top Performers Section -->
+            <div class="top-performers" aria-label="Top 3 Performers">
+              <!-- These will be populated dynamically -->
+              <div class="performer second">
+                <div class="performer-avatar avatar-container" data-rank="2">
+                  <img src="/quizmaster/frontend/images/profile-placeholder.svg" alt="User avatar" class="avatar-image">
+                </div>
+                <div class="performer-name">Loading...</div>
+                <div class="performer-score">
+                  <div class="quiz-count">
+                    <i class="fas fa-check-circle"></i>
+                    <span>0 quizzes completed</span>
+                  </div>
+                  <span class="rank-badge bronze">Bronze</span>
+                </div>
+              </div>
+              
+              <div class="performer first">
+                <div class="performer-avatar avatar-container" data-rank="1">
+                  <img src="/quizmaster/frontend/images/profile-placeholder.svg" alt="User avatar" class="avatar-image">
+                </div>
+                <div class="performer-name">Loading...</div>
+                <div class="performer-score">
+                  <div class="quiz-count">
+                    <i class="fas fa-check-circle"></i>
+                    <span>0 quizzes completed</span>
+                  </div>
+                  <span class="rank-badge bronze">Bronze</span>
+                </div>
+              </div>
+              
+              <div class="performer third">
+                <div class="performer-avatar avatar-container" data-rank="3">
+                  <img src="/quizmaster/frontend/images/profile-placeholder.svg" alt="User avatar" class="avatar-image">
+                </div>
+                <div class="performer-name">Loading...</div>
+                <div class="performer-score">
+                  <div class="quiz-count">
+                    <i class="fas fa-check-circle"></i>
+                    <span>0 quizzes completed</span>
+                  </div>
+                  <span class="rank-badge bronze">Bronze</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Leaderboard List Section -->
+            <div class="leaderboard-list" aria-label="Leaderboard Rankings">
+              <!-- This will be populated dynamically by JavaScript -->
+            </div>
+            
+            <!-- Pagination Section -->
+            <div class="pagination" role="navigation" aria-label="Leaderboard pages">
+              <!-- This will be populated dynamically by JavaScript -->
+            </div>
+            
+            <!-- Loading Overlay -->
+            <div class="loading-overlay" aria-hidden="true">
+              <div class="spinner" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Navigation guard prevents back navigation and enforces authentication requirements -->
+  <script src="js/navigation-guard.js" type="module"></script>
+  <script src="js/student-leaderboard.js" type="module"></script>
+</body>
+
+</html>

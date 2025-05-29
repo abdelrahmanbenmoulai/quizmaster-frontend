@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - QuizMaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base/styles.css">
+    <link rel="stylesheet" href="css/components/auth.css">
+    <link rel="stylesheet" href="css/components/notifications.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="quizz master" />
+    <link rel="manifest" href="site.webmanifest" />
+</head>
+<body>
+    <!-- Main content -->
+    <main class="auth-page">
+        <div class="container">
+    <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-logo">
+                        <a href="index.html">
+                            <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                        </a>
+            </div>
+                    <h1>Create Account</h1>
+                    <p class="subtitle">Join our university quiz platform</p>
+
+                    <form id="signup-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user"></i>
+                                <input type="text" 
+                                       id="fullname" 
+                                       name="fullname" 
+                                       placeholder="Firstname Lastname" 
+                                       autocomplete="name"
+                                       required>
+                            </div>
+                            <span class="error-message" id="fullname-error"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">University Email</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" 
+                                       id="email" 
+                                       name="email" 
+                                       placeholder="f.lastname.inf@lagh-univ.dz" 
+                                       autocomplete="email"
+                                       required>
+                            </div>
+                            <span class="error-message" id="email-error"></span>
+                            <small class="format-hint">Format: f.lastname.inf@lagh-univ.dz</small>
+                        </div>
+
+                        <div class="form-group profile-image-upload">
+                            <label for="profile-image">Profile Image (Optional)</label>
+                            <div class="image-upload-container" id="image-upload-container">
+                                <div class="upload-preview" id="preview-container">
+                                    <i class="fas fa-user-circle" id="default-avatar"></i>
+                                    <img id="image-preview" src="" alt="Profile image preview" style="display: none;">
+                                </div>
+                                <div class="upload-controls">
+                                    <input type="file" id="profile-image" name="profile-image" accept="image/jpeg,image/png,image/gif,image/webp">
+                                    <label for="profile-image" class="upload-button">
+                                        <i class="fas fa-upload"></i> Choose Image
+                                    </label>
+                                    <div class="upload-controls-row">
+                                        <button type="button" id="remove-image" class="remove-button" disabled>
+                                            <i class="fas fa-trash"></i> Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="error-message" id="image-error"></span>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-wrapper password-input">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" 
+                                       id="password" 
+                                       name="password" 
+                                       placeholder="Enter your password"
+                                       autocomplete="new-password" 
+                                       required>
+                                <button type="button" class="toggle-password" id="toggle-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span class="error-message" id="password-error"></span>
+                            <div class="password-strength"></div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <div class="input-wrapper password-input">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" 
+                                       id="confirm-password" 
+                                       name="confirm-password" 
+                                       placeholder="Re-enter your password"
+                                       autocomplete="new-password" 
+                                       required>
+                            </div>
+                            <span class="error-message" id="confirm-password-error"></span>
+                        </div>
+                
+                        <div class="form-group role-selection">
+                            <label>I am a:</label>
+                            <div class="role-options">
+                                <div class="role-option" id="student-option">
+                                    <input type="radio" id="student" name="role" value="student" checked>
+                                    <label for="student">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                            <path d="M2 17l10 5 10-5"></path>
+                                            <line x1="12" y1="12" x2="12" y2="22"></line>
+                                        </svg>
+                                        <span>Student</span>
+                                    </label>
+                                </div>
+                                <div class="role-option" id="teacher-option">
+                                    <input type="radio" id="teacher" name="role" value="teacher">
+                                    <label for="teacher">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                                        </svg>
+                                        <span>Teacher</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="checkbox-container terms-container">
+                            <input type="checkbox" id="terms" name="terms" required>
+                        <span class="checkmark"></span>
+                            <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                            <span class="error-message" id="terms-error"></span>
+                        </div>
+                
+                <button type="submit" class="auth-button">Create Account</button>
+            </form>
+            
+                    <p class="auth-redirect">
+                        Already have an account? <a href="login.html">Log in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="js/signup.js?v=1.0.1" type="module"></script>
+</body>
+</html>

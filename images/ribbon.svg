@@ -1,0 +1,19 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ribbon base -->
+  <path d="M10,10 L70,10 L70,50 L40,70 L10,50 Z" fill="#9750dd" stroke="#6a0dad" stroke-width="2"/>
+  
+  <!-- Ribbon fold details -->
+  <path d="M10,10 L10,50 L20,45 L20,15 Z" fill="#6a0dad" stroke="none"/>
+  <path d="M70,10 L70,50 L60,45 L60,15 Z" fill="#6a0dad" stroke="none"/>
+  
+  <!-- Inner ribbon area -->
+  <path d="M20,15 L60,15 L60,45 L40,60 L20,45 Z" fill="#ffffff" stroke="#6a0dad" stroke-width="1"/>
+  
+  <!-- Decorative star -->
+  <polygon points="40,25 43,32 51,32 45,37 47,44 40,40 33,44 35,37 29,32 37,32" fill="#ffc800" stroke="#6a0dad" stroke-width="1"/>
+  
+  <!-- Small decorative dots -->
+  <circle cx="30" cy="50" r="2" fill="#6a0dad"/>
+  <circle cx="50" cy="50" r="2" fill="#6a0dad"/>
+  <circle cx="40" cy="45" r="3" fill="#6a0dad"/>
+</svg> 

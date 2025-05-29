@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    // Immediately check and apply dark mode before anything else loads
+    try {
+        const isDark = localStorage.getItem('darkMode') === 'true';
+        if (isDark) {
+            document.documentElement.style.backgroundColor = '#1a1a1a';
+            document.documentElement.style.color = '#e0e0e0';
+            document.documentElement.classList.add('dark-theme');
+        }
+    } catch (e) {}
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - QuizMaster</title>
+    <style>
+        /* Prevent any white flash in dark mode */
+        :root {
+            color-scheme: light;
+        }
+        :root[class='dark-theme'] {
+            color-scheme: dark;
+        }
+        html.dark-theme,
+        html.dark-theme body {
+            background-color: #1a1a1a !important;
+            color: #e0e0e0 !important;
+        }
+        /* Hide content until dark mode is determined */
+        html.dark-theme .dashboard-container {
+            visibility: visible;
+        }
+        .dashboard-container {
+            visibility: visible;
+            transition: none !important;
+        }
+    </style>
+    <link rel="stylesheet" href="css/base/styles.css">
+    <link rel="stylesheet" href="css/components/student-dashboard.css">
+    <link rel="stylesheet" href="css/components/student-settings.css">
+    <link rel="stylesheet" href="css/components/notifications.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="quizz master" />
+    <link rel="manifest" href="site.webmanifest" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Same sidebar as other pages -->
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="student-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="student-leaderboard.html" class="nav-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>Leaderboard</span>
+                </a>
+                <a href="student-quizzes.html" class="nav-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Quizzes</span>
+                </a>
+                <a href="student-settings.html" class="nav-item active">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Mobile Header -->
+            <div class="mobile-header">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="#" class="mobile-logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="dashboard-content">
+                <div class="settings-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Settings</h2>
+                    </div>
+
+                    <div class="settings-grid">
+                        <!-- Profile Settings -->
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <i class="fas fa-user"></i>
+                                <h3>Profile Settings</h3>
+                            </div>
+                            <div class="card-content">
+                                <form id="profileForm" class="profile-form" autocomplete="off">
+                                    <div class="profile-picture">
+                                        <div class="picture-container" id="pictureContainer">
+                                            <img src="/quizmaster/frontend/images/profile-placeholder.svg" alt="Profile picture" id="profilePicture">
+                                        </div>
+                                        <input type="file" id="pictureInput" accept="image/*" hidden>
+                                        <div class="zoom-controls">
+                                            <button type="button" class="zoom-btn zoom-out" aria-label="Zoom out">
+                                                <i class="fas fa-search-minus"></i>
+                                            </button>
+                                            <button type="button" class="zoom-btn zoom-reset" aria-label="Reset zoom">
+                                                <i class="fas fa-redo"></i>
+                                            </button>
+                                            <button type="button" class="zoom-btn zoom-in" aria-label="Zoom in">
+                                                <i class="fas fa-search-plus"></i>
+                                            </button>
+                                            <button type="button" class="zoom-btn adjust-position" id="adjustPositionBtn" aria-label="Adjust position">
+                                                <i class="fas fa-expand-arrows-alt"></i>
+                                            </button>
+                                        </div>
+                                        <button class="change-picture-btn" type="button" aria-label="Change profile picture">
+                                            Change Profile Picture
+                                        </button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" id="username" value="John Doe">
+                                    </div>
+                                    <button type="submit" class="save-btn">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Security Settings -->
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <i class="fas fa-lock"></i>
+                                <h3>Security</h3>
+                            </div>
+                            <div class="card-content">
+                                <form id="passwordForm" class="password-form" autocomplete="off" spellcheck="false">
+                                    <!-- Hidden username field for accessibility and password managers -->
+                                    <input type="text" id="passwordFormUsername" name="username" style="display:none" aria-hidden="true">
+                                    
+                                    <div class="form-group">
+                                        <label for="currentPassword">Current Password</label>
+                                        <div class="password-input">
+                                            <input type="password" 
+                                                   id="currentPassword" 
+                                                   name="current-password-fake"
+                                                   autocomplete="off"
+                                                   autocorrect="off"
+                                                   autocapitalize="off"
+                                                   spellcheck="false"
+                                                   readonly
+                                                   onfocus="this.removeAttribute('readonly');">
+                                            <button class="toggle-password" type="button" title="Toggle password visibility">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newPassword">New Password</label>
+                                        <div class="password-input">
+                                            <input type="password" 
+                                                   id="newPassword" 
+                                                   name="new-password-fake"
+                                                   autocomplete="off"
+                                                   autocorrect="off"
+                                                   autocapitalize="off"
+                                                   spellcheck="false"
+                                                   readonly
+                                                   onfocus="this.removeAttribute('readonly');">
+                                            <button class="toggle-password" type="button" title="Toggle password visibility">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmPassword">Confirm New Password</label>
+                                        <div class="password-input">
+                                            <input type="password" 
+                                                   id="confirmPassword" 
+                                                   name="confirm-password-fake"
+                                                   autocomplete="off"
+                                                   autocorrect="off"
+                                                   autocapitalize="off"
+                                                   spellcheck="false"
+                                                   readonly
+                                                   onfocus="this.removeAttribute('readonly');">
+                                            <button class="toggle-password" type="button" title="Toggle password visibility">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="save-btn">Update Password</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Preferences -->
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <i class="fas fa-palette"></i>
+                                <h3>Preferences</h3>
+                            </div>
+                            <div class="card-content">
+                                <form id="preferencesForm" class="preferences-form">
+                                    <div class="preference-item">
+                                        <span id="darkModeLabel">Dark Mode</span>
+                                        <label class="switch" title="Toggle dark mode">
+                                            <input type="checkbox" id="darkMode" title="Enable dark mode" aria-labelledby="darkModeLabel">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="preference-item">
+                                        <span id="languageLabel">Language</span>
+                                        <select class="language-select" id="language" title="Select language" aria-labelledby="languageLabel">
+                                            <option value="en">English</option>
+                                            <option value="ar">العربية</option>
+                                            <option value="fr">Français</option>
+                                        </select>
+                                    </div>
+                                    <div class="preference-item">
+                                        <span id="notificationsLabel">Quiz Notifications</span>
+                                        <label class="switch" title="Toggle quiz notifications">
+                                            <input type="checkbox" id="quizNotifications" checked title="Enable quiz notifications" aria-labelledby="notificationsLabel">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/utils/auth.js" type="module"></script>
+    <script src="js/utils/role-guard.js" type="module"></script>
+    <script type="module">
+        import roleGuard from './js/utils/role-guard.js';
+        
+        // Initialize role guard before loading settings
+        roleGuard.initialize('student').then(hasAccess => {
+            if (hasAccess) {
+                // Only load settings if role check passes
+                import('./js/student-settings.js').then(module => {
+                    // Settings will be initialized automatically
+                    console.log('Settings module loaded successfully');
+                }).catch(error => {
+                    console.error('Error loading settings module:', error);
+                });
+            }
+        }).catch(error => {
+            console.error('Error initializing role guard:', error);
+        });
+    </script>
+    <script>
+        // Direct logout function as a backup
+        function handleLogoutDirectly() {
+            console.log('Direct logout handler triggered');
+            try {
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userData');
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Logout failed:', error);
+                alert('Logout failed: ' + error.message);
+            }
+        }
+        
+        // Immediate profile picture check
+        (function() {
+            // Set up direct event handlers first
+            const pictureInput = document.getElementById('pictureInput');
+            const profilePicture = document.getElementById('profilePicture');
+            const pictureContainer = document.querySelector('.picture-container');
+            const changeButton = document.querySelector('.change-picture-btn');
+            
+            if (pictureContainer) {
+                pictureContainer.onclick = function() {
+                    console.log('Picture container clicked (direct handler)');
+                    if (pictureInput) pictureInput.click();
+                };
+            }
+            
+            if (changeButton) {
+                changeButton.onclick = function() {
+                    console.log('Change picture button clicked (direct handler)');
+                    if (pictureInput) pictureInput.click();
+                };
+            }
+            
+            // Try to load from localStorage first
+            try {
+                const savedUserData = localStorage.getItem('userData');
+                if (savedUserData) {
+                    const userData = JSON.parse(savedUserData);
+                    console.log('Found cached user data:', userData);
+                    
+                    if (userData && userData.avatar) {
+                        if (profilePicture) {
+                            console.log('Immediately updating profile picture to:', userData.avatar);
+                            
+                            // Normalize path to ensure correct processing
+                            let avatarPath = userData.avatar;
+                            console.log('Original avatar path:', avatarPath);
+                            
+                            // Process the path based on its prefix
+                            if (avatarPath.startsWith('backend/')) {
+                                // For backend paths, use the correct structure
+                                avatarPath = '/quizmaster/' + avatarPath;
+                            } else if (avatarPath.startsWith('frontend/')) {
+                                // For frontend paths, use as is
+                                avatarPath = '/quizmaster/' + avatarPath;
+                            } else if (avatarPath.startsWith('/')) {
+                                // For absolute paths, use as is
+                                avatarPath = avatarPath;
+                            } else {
+                                // For other paths, assume frontend
+                                avatarPath = '/quizmaster/frontend/' + avatarPath;
+                            }
+                            
+                            console.log('Processed avatar path:', avatarPath);
+                            
+                            // Add timestamp to prevent caching
+                            profilePicture.src = avatarPath + '?t=' + new Date().getTime();
+                            
+                            // Add error handler with fallback attempts
+                            profilePicture.onerror = function() {
+                                console.error('Failed to load avatar image:', avatarPath);
+                                
+                                // Try with the original path as a fallback
+                                const originalPath = userData.avatar;
+                                console.log('Trying with original path:', originalPath);
+                                
+                                // Create image to test loading
+                                const testImg = new Image();
+                                testImg.onload = function() {
+                                    profilePicture.src = originalPath;
+                                };
+                                
+                                testImg.onerror = function() {
+                                    // Final fallback to default
+                                    profilePicture.src = '/quizmaster/frontend/images/profile-placeholder.svg';
+                                };
+                                
+                                testImg.src = originalPath;
+                            };
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Error checking cached user data:', e);
+            }
+        })();
+    </script>
+</body>
+</html>

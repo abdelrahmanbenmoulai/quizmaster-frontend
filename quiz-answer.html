@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+(function() {
+  var theme = localStorage.getItem('theme');
+  if (!theme && localStorage.getItem('darkMode') === 'true') theme = 'dark';
+  if (!theme) theme = 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark-theme');
+    document.documentElement.style.backgroundColor = '#1a1a1a';
+    document.documentElement.style.color = '#e0e0e0';
+  } else {
+    document.documentElement.classList.remove('dark-theme');
+    document.documentElement.style.backgroundColor = '#fff';
+    document.documentElement.style.color = '#222';
+  }
+})();
+</script>
+<style>
+  html, body { background: #fff; color: #222; }
+  html[data-theme='dark'], html.dark-theme, html[data-theme='dark'] body, html.dark-theme body {
+    background: #1a1a1a !important;
+    color: #e0e0e0 !important;
+  }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Quiz - QuizMaster</title>
+    <!-- Add dark mode check script before any styles -->
+    <script>
+        // Immediately check dark mode preference
+        (function() {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark-theme');
+                // Wait for body to be available
+                if (document.body) {
+                    document.body.classList.add('dark-theme');
+                } else {
+                    // If body is not available yet, wait for it
+                    document.addEventListener('DOMContentLoaded', () => {
+                        document.body.classList.add('dark-theme');
+                    });
+                }
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="css/base/styles.css">
+    <link rel="stylesheet" href="css/components/student-dashboard.css">
+    <link rel="stylesheet" href="css/components/quiz-answer.css">
+    <link rel="stylesheet" href="css/components/notifications.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+</head>
+<body class="quiz-active">
+    <!-- Add sidebar for consistency -->
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="student-dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="student-leaderboard.html" class="nav-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>Leaderboard</span>
+                </a>
+                <a href="student-quizzes.html" class="nav-item active">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Quizzes</span>
+                </a>
+                <a href="student-settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- Mobile Header -->
+            <div class="mobile-header">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="#" class="mobile-logo">
+                    <img src="images/quiz-logo.svg" alt="QuizMaster Logo">
+                    <span>QuizMaster</span>
+                </a>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="quiz-answer-container">
+                    <div class="quiz-header">
+                        <div class="quiz-info">
+                            <div class="teacher-info">
+                                <img src="" alt="" class="teacher-avatar" id="teacherAvatar">
+                                <div class="teacher-details">
+                                    <div class="teacher-name" id="teacherName"></div>
+                                    <div class="subject" id="subject"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quiz-timer">
+                            <div class="timer-circle">
+                                <svg class="timer-svg" viewBox="0 0 100 100">
+                                    <circle class="timer-background" cx="50" cy="50" r="45"></circle>
+                                    <circle class="timer-progress" cx="50" cy="50" r="45"></circle>
+                                </svg>
+                                <span class="timer-count">15</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-content">
+                        <div class="question-container">
+                            <h2 class="question-text" id="questionText"></h2>
+                            <div class="options-grid" id="optionsGrid">
+                                <!-- Options will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Warning Modal -->
+    <div class="warning-modal" id="warningModal">
+        <div class="modal-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Warning!</h3>
+            <p>Leaving this page will result in disqualification.</p>
+            <button class="modal-btn" id="stayButton">Stay on Page</button>
+        </div>
+    </div>
+
+    <!-- Time Expired Modal -->
+    <div class="failure-modal" id="timeExpiredModal">
+        <div class="modal-content">
+            <i class="fas fa-clock failure-icon"></i>
+            <h3>Time's Up!</h3>
+            <p>Your time has expired. Your quiz has been automatically submitted.</p>
+            <button class="modal-btn" id="timeExpiredButton">Return to Quizzes</button>
+        </div>
+    </div>
+
+    <!-- Quiz Abandonment Modal -->
+    <div class="failure-modal" id="abandonmentModal">
+        <div class="modal-content">
+            <i class="fas fa-exclamation-circle failure-icon"></i>
+            <h3>Quiz Failed</h3>
+            <p>You have left or attempted to leave the quiz page. This quiz has been marked as failed.</p>
+            <p class="abandon-warning">Navigating away from a quiz at any time will result in immediate disqualification.</p>
+            <button class="modal-btn" id="abandonmentButton">Return to Quizzes</button>
+        </div>
+    </div>
+
+    <!-- Navigation guard ensures proper authentication -->
+    <script src="js/navigation-guard.js" type="module"></script>
+    <script src="js/quiz-answer.js" type="module"></script>
+</body>
+</html>
